@@ -9,6 +9,11 @@ class QOpenGLShader;
 class QOpenGLShaderProgram;
 class QOpenGLPaintDevice;
 
+namespace Solar_Panel_Simulator
+{
+    class OpenGLWindow;
+}
+
 class OpenGLWindow :public QOpenGLWidget, protected QOpenGLFunctions
 {
     Q_OBJECT
@@ -16,6 +21,11 @@ public:
     OpenGLWindow(const QColor& background, QWidget* parent);
     ~OpenGLWindow();
     void setZoomFactor(double zoomFactor);
+    void setMultiplier(float value);
+    void startRevolving();
+    void stopRevolving();
+    void resetPositions();
+    void updatePositions(float minutes);
 
 protected:
     void paintGL() override;
@@ -30,9 +40,11 @@ private:
     void addRotatedRectangle(QVector<GLfloat>& mVertices, QVector<GLfloat>& mColors, float centerX, float centerY, float width, float height, float rotationAngle, const QVector3D& color);
 
 private:
+    float mMultiplier;
     float planetAngle = 0.0f;
     float orbitX;
     float orbitY;
+    bool isRevolving;
 
     QVector2D sunPosition;
     double mZoomFactor;

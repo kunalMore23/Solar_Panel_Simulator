@@ -5,12 +5,14 @@
 #include <QOpenGLShaderProgram>
 #include <QPainter>
 
-OpenGLWindow::OpenGLWindow(const QColor& background, QWidget* parent) : mBackground(background), orbitX(0.0f), orbitY(-8.0f), sunPosition(QPoint(0.0f, 0.0f))
+OpenGLWindow::OpenGLWindow(const QColor& background, QWidget* parent) : mBackground(background), orbitX(0.0f), orbitY(-8.0f), sunPosition(QPoint(0.0f, 0.0f)), mMultiplier{ 1.0f }
 {
 	//initializeGL();
 	setParent(parent);
 	setMinimumSize(500, 250);
+	isRevolving = false;
 }
+
 OpenGLWindow::~OpenGLWindow()
 {
 	reset();
@@ -18,7 +20,6 @@ OpenGLWindow::~OpenGLWindow()
 
 void OpenGLWindow::reset()
 {
-
 	makeCurrent();
 	delete mProgram;
 	mProgram = nullptr;
@@ -26,60 +27,98 @@ void OpenGLWindow::reset()
 	QObject::disconnect(mContextWatchConnection);
 }
 
-
-
 void OpenGLWindow::paintGL()
 {
+	if (isRevolving)
+	{
+		glClear(GL_COLOR_BUFFER_BIT);
+		mProgram->bind();
 
-	glClear(GL_COLOR_BUFFER_BIT);
-	mProgram->bind();
+		QMatrix4x4 matrix;
+		matrix.ortho(-6.0f * 1.475, 6.0f * 1.475, -6.0f * 1.475, 6.0f * 1.475, 0.1f, 100.0f);
+		matrix.translate(0, 0, -2);
 
-	QMatrix4x4 matrix;
-	matrix.ortho(-6.0f * mZoomFactor, 6.0f * mZoomFactor, -6.0f * mZoomFactor, 6.0f * mZoomFactor, 0.1f, 100.0f);  // Adjusted orthographic projection
-	matrix.translate(0, 0, -2);
+		mProgram->setUniformValue(m_matrixUniform, matrix);
+		QVector<GLfloat> mColors;
+		QVector<GLfloat> mVertices;
 
-	mProgram->setUniformValue(m_matrixUniform, matrix);
-	QVector<GLfloat> mColors;
-	QVector<GLfloat> mVertices;
+		drawOrbitingPlanets(mVertices, mColors);
 
+		float* mVerticesData = mVertices.data();
+		float* mColorsData = mColors.data();
 
-	drawOrbitingPlanets(mVertices, mColors);
+		glVertexAttribPointer(m_posAttr, 2, GL_FLOAT, GL_FALSE, 0, mVerticesData);
+		glVertexAttribPointer(m_colAttr, 3, GL_FLOAT, GL_FALSE, 0, mColorsData);
 
+		glEnableVertexAttribArray(m_posAttr);
+		glEnableVertexAttribArray(m_colAttr);
 
+		glDrawArrays(GL_LINES, 0, mVertices.size() / 2);
 
+		QVector<GLfloat> mSolarVertices;
+		QVector<GLfloat> mSolarColors;
 
-	float* mVerticesData = mVertices.data();
-	float* mColorsData = mColors.data();
+		drawSolarPanel(mSolarVertices, mSolarColors);
 
-	glVertexAttribPointer(m_posAttr, 2, GL_FLOAT, GL_FALSE, 0, mVerticesData);
-	glVertexAttribPointer(m_colAttr, 3, GL_FLOAT, GL_FALSE, 0, mColorsData);
+		GLfloat* mSvertex = mSolarVertices.data();
+		GLfloat* mScolors = mSolarColors.data();
 
-	glEnableVertexAttribArray(m_posAttr);
-	glEnableVertexAttribArray(m_colAttr);
+		glVertexAttribPointer(m_posAttr, 2, GL_FLOAT, GL_FALSE, 0, mSvertex);
+		glVertexAttribPointer(m_colAttr, 3, GL_FLOAT, GL_FALSE, 0, mScolors);
 
-	glDrawArrays(GL_LINES, 0, mVertices.size() / 2);
+		glDrawArrays(GL_QUADS, 0, mSolarVertices.size() / 2);
 
-	QVector<GLfloat> mSolarVertices;
-	QVector<GLfloat> mSolarColors;
+		glDisableVertexAttribArray(m_colAttr);
+		glDisableVertexAttribArray(m_posAttr);
 
-	drawSolarPanel(mSolarVertices, mSolarColors);
+		update();
+		mProgram->release();
+	}
+	else
+	{
+		glClear(GL_COLOR_BUFFER_BIT);
+		mProgram->bind();
 
-	GLfloat* mSvertex = mSolarVertices.data();
-	GLfloat* mScolors = mSolarColors.data();
+		QMatrix4x4 matrix;
+		matrix.ortho(-6.0f * 1.475, 6.0f * 1.475, -6.0f * 1.475, 6.0f * 1.475, 0.1f, 100.0f);
+		matrix.translate(0, 0, -2);
 
-	glVertexAttribPointer(m_posAttr, 2, GL_FLOAT, GL_FALSE, 0, mSvertex);
-	glVertexAttribPointer(m_colAttr, 3, GL_FLOAT, GL_FALSE, 0, mScolors);
+		mProgram->setUniformValue(m_matrixUniform, matrix);
+		QVector<GLfloat> mColors;
+		QVector<GLfloat> mVertices;
 
-	glDrawArrays(GL_QUADS, 0, mSolarVertices.size() / 2);
+		drawOrbitingPlanets(mVertices, mColors);
 
-	glDisableVertexAttribArray(m_colAttr);
-	glDisableVertexAttribArray(m_posAttr);
+		float* mVerticesData = mVertices.data();
+		float* mColorsData = mColors.data();
 
-	mProgram->release();
-	update();
+		glVertexAttribPointer(m_posAttr, 2, GL_FLOAT, GL_FALSE, 0, mVerticesData);
+		glVertexAttribPointer(m_colAttr, 3, GL_FLOAT, GL_FALSE, 0, mColorsData);
 
+		glEnableVertexAttribArray(m_posAttr);
+		glEnableVertexAttribArray(m_colAttr);
+
+		glDrawArrays(GL_LINES, 0, mVertices.size() / 2);
+
+		QVector<GLfloat> mSolarVertices;
+		QVector<GLfloat> mSolarColors;
+
+		drawSolarPanel(mSolarVertices, mSolarColors);
+
+		GLfloat* mSvertex = mSolarVertices.data();
+		GLfloat* mScolors = mSolarColors.data();
+
+		glVertexAttribPointer(m_posAttr, 2, GL_FLOAT, GL_FALSE, 0, mSvertex);
+		glVertexAttribPointer(m_colAttr, 3, GL_FLOAT, GL_FALSE, 0, mScolors);
+
+		glDrawArrays(GL_QUADS, 0, mSolarVertices.size() / 2);
+
+		glDisableVertexAttribArray(m_colAttr);
+		glDisableVertexAttribArray(m_posAttr);
+
+		mProgram->release();
+	}
 }
-
 
 void OpenGLWindow::drawSun(QVector<GLfloat>& mVertices, QVector<GLfloat>& mColors, float cx, float cy, float radius, int segments, const QVector3D& planetColor)
 {
@@ -100,7 +139,7 @@ void OpenGLWindow::drawSun(QVector<GLfloat>& mVertices, QVector<GLfloat>& mColor
 void OpenGLWindow::drawSolarPanel(QVector<GLfloat>& mSolarVertices, QVector<GLfloat>& mSolarColors)
 {
 	// Define the dimensions of the solar panel
-	float panelWidth = 1.4f;
+	float panelWidth = 2.4f;
 	float panelHeight = 0.1f;
 	float columnWidth = 0.05f;
 	float columnHeight = 0.5f;
@@ -136,13 +175,15 @@ void OpenGLWindow::drawSolarPanel(QVector<GLfloat>& mSolarVertices, QVector<GLfl
 	mSolarColors << 0.0f << 0.0f << 0.0f;
 }
 
+
 void OpenGLWindow::addRotatedRectangle(QVector<GLfloat>& mVertices, QVector<GLfloat>& mColors, float centerX, float centerY, float width, float height, float rotationAngle, const QVector3D& color)
 {
 	float halfWidth = width / 2;
 	float halfHeight = height / 2;
 
 	// Define the vertices of the rectangle
-	QVector<QVector3D> vertices = {
+	QVector<QVector3D> vertices = 
+	{
 		QVector3D(-halfWidth, -halfHeight, 0),
 		QVector3D(halfWidth, -halfHeight, 0),
 		QVector3D(halfWidth, halfHeight, 0),
@@ -165,23 +206,13 @@ void OpenGLWindow::addRotatedRectangle(QVector<GLfloat>& mVertices, QVector<GLfl
 
 void OpenGLWindow::drawOrbitingPlanets(QVector<GLfloat>& mVertices, QVector<GLfloat>& mColors)
 {
-
-	float theta = 0.0f;
-	for (int j = 0; j < 180; ++j) {
-		theta = qDegreesToRadians(float(j));
-		orbitX = 7.5f * cosf(theta);
-		orbitY = -8.0f + 8.0f * sinf(theta);
-		mVertices << orbitX << orbitY;
-		mColors << 1.0f << 1.0f << 1.0f;  // White color for the orbit
-	}
-
-	theta = qDegreesToRadians(planetAngle);
+	float theta = qDegreesToRadians(planetAngle);
 	orbitX = 7.5f * cosf(theta);
 	orbitY = -8.0 + 8.0f * sinf(theta);
 	sunPosition.setX(orbitX);
 	sunPosition.setY(orbitY);
-	drawSun(mVertices, mColors, orbitX, orbitY, 1.0f, 600, QVector3D(100.0f, 68.2f, 25.9f));
-	planetAngle += 0.28f;
+	drawSun(mVertices, mColors, orbitX, orbitY, 1.0f, 600, QVector3D(255.0f, 215.0f, 0.0f));
+	planetAngle += mMultiplier * 0.28f;
 
 	// Keep the angle within 360 degrees
 	if (planetAngle >= 180.0f) {
@@ -190,10 +221,40 @@ void OpenGLWindow::drawOrbitingPlanets(QVector<GLfloat>& mVertices, QVector<GLfl
 		orbitX = -8.0f;
 	}
 }
+
+void OpenGLWindow::startRevolving()
+{
+	isRevolving = true;
+	update();
+}
+
+void OpenGLWindow::stopRevolving()
+{
+	isRevolving = false;
+}
+
+void OpenGLWindow::setMultiplier(float value)
+{
+	mMultiplier = value;
+}
+
+void OpenGLWindow::resetPositions()
+{
+	planetAngle = 0.0f;
+	update();
+}
+
+void OpenGLWindow::updatePositions(float minutes)
+{
+	planetAngle += (minutes / 1440) * 360.0f;
+	update();
+}
+
 void OpenGLWindow::setZoomFactor(double zoomFactor)
 {
 	mZoomFactor = zoomFactor;
 }
+
 void OpenGLWindow::initializeGL()
 {
 	static const char* vertexShaderSource =
@@ -235,5 +296,4 @@ void OpenGLWindow::initializeGL()
 	}
 
 	glClearColor(mBackground.redF(), mBackground.greenF(), mBackground.blueF(), 1.0f);
-
 }

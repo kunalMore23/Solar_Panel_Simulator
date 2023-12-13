@@ -121,6 +121,7 @@
     <None Include="Visualizer.ico" />
     <ResourceCompile Include="Visualizer.rc" />
     <QtMoc Include="OpenGLWindow.h" />
+    <ClInclude Include="Solar_Panel_Simulator_namespace.h" />
     <ClInclude Include="stdafx.h" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">Create</PrecompiledHeader>

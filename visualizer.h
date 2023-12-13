@@ -1,53 +1,46 @@
 #pragma once
-
 #include <QMainWindow>
-#include <QGraphicsView>
 #include <QPushButton>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QLineEdit>
-#include <QMenuBar>
-#include <QStatusBar>
 #include <QTimer>
 
 class OpenGLWindow;
 
-namespace Ui {
-	class Visualizer;
-}
-
 class Visualizer : public QMainWindow
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	Visualizer(QWidget* parent = nullptr);
-	~Visualizer();
-
-
-private:
-	void setupUi();// UI setup function
-	void zoomSliderChanged(int value);
-
+    Visualizer(QWidget* parent = nullptr);
+    ~Visualizer();
 
 private:
+    void setupUi();
 
-	QMenuBar* menubar;
-	QStatusBar* statusbar;
-	QWidget* centralwidget;
-	QVBoxLayout* verticalLayout;
-	QGraphicsView* graphicsView;
-	QHBoxLayout* horizontalLayout;
-	QPushButton* startButton;
-	QPushButton* stopButton;
-	QPushButton* resetButton;
-	QPushButton* updateButton;
-	QLineEdit* timeInput;
-	QTimer* timer;
+private slots:
+    void startBtn();
+    void stopBtn();
+    void resetBtn();
+    void updateBtn();
+    void zoomSliderChanged(float value);
 
-	QMenuBar* mMenuBar;
-	QToolBar* mMainToolBar;
-	QWidget* mCentralWidget;
-	QStatusBar* mStatusBar;
-	OpenGLWindow* mRenderer;
+private:
+    QGridLayout* mBaseLayout;
+    QVBoxLayout* mVbuttonsLayout;
+    QHBoxLayout* mButtonsLayout;
+
+    QPushButton* mStartButton;
+    QPushButton* mStopButton;
+    QPushButton* mResetButton;
+    QPushButton* mUpdateButton;
+
+    QLineEdit* mTimeInput;
+    QTimer* mTimer;
+    QWidget* mWidget;
+    
+    QWidget* mCentralWidget;
+    OpenGLWindow* mRenderer;
+    QSlider* mZoomSlider;
 };

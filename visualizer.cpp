@@ -1,58 +1,93 @@
-// mainwindow.cpp
 #include "stdafx.h"
-#include "visualizer.h"
+#include "Visualizer.h"
 #include "OpenGLWindow.h"
 #include <QPushButton>
 #include <QGridLayout>
 #include <QInputDialog>
-#include <iostream>
-
+#include <iostream>   
 
 Visualizer::Visualizer(QWidget* parent)
-    : QMainWindow(parent)
+	: QMainWindow(parent)
 {
-    setupUi();
+	setupUi();
 
+	connect(mStartButton, &QPushButton::clicked, this, &Visualizer::startBtn);
+	connect(mStopButton, &QPushButton::clicked, this, &Visualizer::stopBtn);
+	connect(mResetButton, &QPushButton::clicked, this, &Visualizer::resetBtn);
+	connect(mUpdateButton, &QPushButton::clicked, this, &Visualizer::updateBtn);
+	connect(mZoomSlider, &QSlider::valueChanged, this, &Visualizer::zoomSliderChanged);
 }
-
 Visualizer::~Visualizer()
 {
 }
 
 void Visualizer::setupUi()
 {
-    resize(720, 700);
-    QWidget* widget = new QWidget(this);
-    QGridLayout* mBaseLayout = new QGridLayout(widget);
-    setCentralWidget(widget);
-    QVBoxLayout* VbuttonsLayout = new QVBoxLayout();
+	resize(720, 700);
+	mWidget = new QWidget(this);
+	mBaseLayout = new QGridLayout(mWidget);
+	mVbuttonsLayout = new QVBoxLayout();
+	mButtonsLayout = new QHBoxLayout();
+	mZoomSlider = new QSlider(Qt::Horizontal, mWidget);
+	mRenderer = new OpenGLWindow(QColor(135.0f, 206.0f, 250.0f), mWidget);
 
-    QHBoxLayout* buttonsLayout = new QHBoxLayout();
-    VbuttonsLayout->addLayout(buttonsLayout);
+	setCentralWidget(mWidget);
+	mStartButton = new QPushButton("Start", mWidget);
+	mStopButton = new QPushButton("Stop", mWidget);
+	mResetButton = new QPushButton("Reset", mWidget);
+	mUpdateButton = new QPushButton("Update", mWidget);
+	mTimeInput = new QLineEdit(mWidget);
+	mTimeInput->setPlaceholderText("Enter Minutes");
 
-    QSlider* zoomSlider = new QSlider(Qt::Horizontal, widget);
-    zoomSlider->setRange(0, 100);  // Adjust the range as needed
-    zoomSlider->setValue(50);      // Set initial value to the middle
-    connect(zoomSlider, &QSlider::valueChanged, this, &Visualizer::zoomSliderChanged);
+	mStartButton->setFixedWidth(140);
+	mButtonsLayout->addWidget(mStartButton);
+	mStopButton->setFixedWidth(140);
+	mButtonsLayout->addWidget(mStopButton);
+	mResetButton->setFixedWidth(140);
+	mButtonsLayout->addWidget(mResetButton);
+	mUpdateButton->setFixedWidth(140);
+	mButtonsLayout->addWidget(mUpdateButton);
+	mTimeInput->setFixedWidth(140);
+	mButtonsLayout->addWidget(mTimeInput);
 
-    // Add the zoom slider to the layout
-    VbuttonsLayout->addWidget(zoomSlider);
+	mZoomSlider->setRange(0, 100);
+	mZoomSlider->setValue(50);
 
-    mRenderer = new OpenGLWindow(QColor(0.0f, 31.0f, 63.0f), widget);
-    VbuttonsLayout->addWidget(mRenderer, 1);
-    mBaseLayout->addLayout(VbuttonsLayout, 0, 0);
-
-
-
-    setWindowTitle(QCoreApplication::translate("Solar Panel Simulator", "Solar Panel Simulator", nullptr));
-
+	mVbuttonsLayout->addWidget(mRenderer, 1);
+	mVbuttonsLayout->addLayout(mButtonsLayout);
+	mVbuttonsLayout->addWidget(mZoomSlider);
+	mBaseLayout->addLayout(mVbuttonsLayout, 0, 0);
+	setWindowTitle(QCoreApplication::translate("Solar Panel Simulator", "Solar Panel Simulator", nullptr));
 }
 
-void Visualizer::zoomSliderChanged(int value)
+void Visualizer::zoomSliderChanged(float value)
 {
-    // Map the slider value to a zoom factor, e.g., from 0.5 to 2.0
-    double zoomFactor = 0.5 + (value / 100.0) * 1.5;
+	float zoomFactor = 0.5f + (value / 25.0f) * 1.5f;
+	mRenderer->setMultiplier(zoomFactor);
+}
 
-    // Apply the zoom factor to your OpenGL renderer or adjust as needed
-    mRenderer->setZoomFactor(zoomFactor);
+void Visualizer::startBtn()
+{
+	mRenderer->startRevolving();
+}
+
+void Visualizer::stopBtn()
+{
+	mRenderer->stopRevolving();
+}
+
+void Visualizer::resetBtn()
+{
+	mRenderer->resetPositions();
+}
+
+void Visualizer::updateBtn()
+{
+	bool ok;
+	float numberOfDays = mTimeInput->text().toInt(&ok);
+
+	if (ok)
+	{
+		mRenderer->updatePositions(numberOfDays);
+	}
 }
