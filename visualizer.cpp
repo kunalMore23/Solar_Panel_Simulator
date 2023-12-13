@@ -44,7 +44,7 @@ void Visualizer::setupUi()
 
 
 
-    setWindowTitle(QCoreApplication::translate("Solar System Simulator", "Solar System Simulator", nullptr));
+    setWindowTitle(QCoreApplication::translate("Solar Panel Simulator", "Solar Panel Simulator", nullptr));
 
 }
 
