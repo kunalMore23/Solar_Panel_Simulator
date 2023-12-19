@@ -64,6 +64,24 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
   </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>D:\Kunal_Workspace\Qt\Visualizer\Solar_System;D:\Kunal_Workspace\Qt\Visualizer\Geometry;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>D:\Kunal_Workspace\Qt\Visualizer\x64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Geometry.lib;SolarSystem.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>D:\Kunal_Workspace\Qt\Visualizer\Solar_System;D:\Kunal_Workspace\Qt\Visualizer\Geometry;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>D:\Kunal_Workspace\Qt\Visualizer\x64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Geometry.lib;SolarSystem.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
     <ClCompile>
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
@@ -100,14 +118,15 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <QtRcc Include="visualizer.qrc" />
-    <QtUic Include="visualizer.ui" />
     <QtMoc Include="visualizer.h" />
     <ClCompile Include="OpenGLWindow.cpp" />
+    <ClCompile Include="Solar_Panel_System.cpp" />
     <ClCompile Include="visualizer.cpp" />
     <ClCompile Include="main.cpp" />
     <None Include="Visualizer.ico" />
     <ResourceCompile Include="Visualizer.rc" />
     <QtMoc Include="OpenGLWindow.h" />
+    <ClInclude Include="Solar_Panel_System.h" />
     <ClInclude Include="stdafx.h" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">Create</PrecompiledHeader>

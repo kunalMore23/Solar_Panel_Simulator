@@ -1,4 +1,5 @@
 #pragma once
+#include "Point3D.h"
 class Solar_Panel_System
 {
 public:
@@ -22,7 +23,7 @@ private:
     void rotateSolarPanel(QVector<GLfloat>& mVertices, QVector<GLfloat>& mColors);
 
 private:
-    QVector3D* sunColor = new QVector3D(255.0f, 215.0f, 0.0f);
+    Point3D* sunColor = new Point3D(255.0f, 215.0f, 0.0f);
     float mMultiplier;
     float planetAngle = 0.0f;
     float orbitX;
