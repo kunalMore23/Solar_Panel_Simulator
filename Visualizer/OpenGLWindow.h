@@ -3,6 +3,7 @@
 #include <QOpenGLFunctions>
 #include <QOpenGLBuffer>
 #include <cmath>
+#include "Solar_Panel_System.h"
 
 class QOpenGLTexture;
 class QOpenGLShader;
@@ -27,17 +28,14 @@ public:
     void resetPositions();
     void updatePositions(float minutes);
 
+    void updateSolarPanelData();
+
 protected:
     void paintGL() override;
     void initializeGL() override;
 
-
 private:
-    void drawSun(QVector<GLfloat>& vertices, QVector<GLfloat>& colors, float cx, float cy, float radius, int segments, const QVector3D& planetColor);
-    void drawOrbitingPlanets(QVector<GLfloat>& vertices, QVector<GLfloat>& colors);
     void reset();
-    void drawSolarPanel(QVector<GLfloat>& mSolarVertices, QVector<GLfloat>& mSolarColors);
-    void addRotatedRectangle(QVector<GLfloat>& mVertices, QVector<GLfloat>& mColors, float centerX, float centerY, float width, float height, float rotationAngle, const QVector3D& color);
 
 private:
     float mMultiplier;
@@ -46,11 +44,19 @@ private:
     float orbitY;
     bool isRevolving;
 
+    floatList mVertices;
+    floatList mColors;
+
+    float* mVerticesData;
+    float* mColorsData;
+
     QVector2D sunPosition;
     double mZoomFactor;
     QOpenGLShaderProgram* mProgram = nullptr;
     QColor mBackground;
     QMetaObject::Connection mContextWatchConnection;
+    QTimer* timer;
+    Solar_Panel_System* solar;
 
     GLint m_posAttr = 0;
     GLint m_colAttr = 0;

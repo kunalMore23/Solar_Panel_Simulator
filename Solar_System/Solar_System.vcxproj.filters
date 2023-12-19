@@ -27,7 +27,7 @@
     <ClInclude Include="pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Solar.h">
+    <ClInclude Include="Solar_Panel_System.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -41,7 +41,7 @@
     <ClCompile Include="pch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Solar.cpp">
+    <ClCompile Include="Solar_Panel_System.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
