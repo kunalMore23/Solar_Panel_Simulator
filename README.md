@@ -28,6 +28,12 @@ Folder: [Hermite](Hermite)
 
 The Hermite Curve Drawing project features the implementation of Hermite curves. The `Hermite` class is used to create and draw Hermite curves.
 
+### 5. Geometry
+
+Folder: [Geometry](Geometry)
+
+The Geometry project includes implementations of fundamental geometric shapes such as points, lines, rectangles, and circles using OpenGL and Qt.
+
 ## Usage
 
 Each project folder contains its respective source code, header files, and additional resources. Follow the instructions provided in each project's README file for building, running, and understanding the implementation details.
