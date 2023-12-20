@@ -1,4 +1,4 @@
-# BSpline DLL
+# BSpline Curve Drawing
 
 This project provides a dynamic link library (DLL) for a 3D B-spline curve using OpenGL and Qt. The DLL includes a `BSpline` class that allows the creation and evaluation of a B-spline curve based on control points.
 
