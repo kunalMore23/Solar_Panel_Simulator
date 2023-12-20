@@ -52,3 +52,7 @@ To use this Solar Panel System simulation, follow these steps:
    ```cpp
    // Example: Start revolving
    solarSystem.startRevolving();
+
+![Screenshot](s.png)
+
+
