@@ -46,7 +46,7 @@ To use this Solar Panel System simulation, follow these steps:
    floatList vertices;
    floatList colors;
    solarSystem.showSolarPanelSystem(vertices, colors);
-// Render the vertices and colors using OpenGL
+   // Render the vertices and colors using OpenGL
 
 4. **Control the simulation:**
    ```cpp
