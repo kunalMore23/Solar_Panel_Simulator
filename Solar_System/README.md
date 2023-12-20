@@ -53,6 +53,5 @@ To use this Solar Panel System simulation, follow these steps:
    // Example: Start revolving
    solarSystem.startRevolving();
 
-![Screenshot](s.png)
-
+![solarPanel](../solarPanel.png)
 
