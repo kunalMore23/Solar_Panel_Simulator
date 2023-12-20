@@ -10,132 +10,130 @@ class OpenGLWindow;
 
 class Visualizer : public QMainWindow
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    Visualizer(QWidget* parent = nullptr);
-    ~Visualizer();
+	Visualizer(QWidget* parent = nullptr);
+	~Visualizer();
 
 private:
-    void setupUi();
+	void setupUi();
+	void onTabChanged(int tabIndex);
 
-//---------------------------------------------------------Solar Panel-------------------------------------------------------------
+	void drawCurveUsingBezier();
+	void drawCurveUsingHermite();
+	void drawCurveUsingBSpline();
 
 private slots:
-    void startBtn();
-    void stopBtn();
-    void resetBtn();
-    void updateBtn();
-    void zoomSliderChanged(float value);
+	void startBtn();
+	void stopBtn();
+	void resetBtn();
+	void updateBtn();
+	void zoomSliderChanged(float value);
 
 private:
-    QGridLayout* mBaseLayout;
-    QVBoxLayout* mVbuttonsLayout;
-    QHBoxLayout* mButtonsLayout;
+	QGridLayout* mBaseLayout;
 
-    QPushButton* mStartButton;
-    QPushButton* mStopButton;
-    QPushButton* mResetButton;
-    QPushButton* mUpdateButton;
+	QVBoxLayout* mVbuttonsLayout;
+	QVBoxLayout* mV1inputLayout;
+	QVBoxLayout* mV2inputLayout;
+	QVBoxLayout* mV3inputLayout;
+	QVBoxLayout* mV4inputLayout;
+	QVBoxLayout* mV5inputLayout;
 
-    QLineEdit* mTimeInput;
-    QTimer* mTimer;
-    QWidget* mWidget;
+	QHBoxLayout* mButtonsLayout;
+	QHBoxLayout* mInputBoxLayout;
 
-    QWidget* mCentralWidget;
-    OpenGLWindow* mRenderer;
-    QSlider* mZoomSlider;
+	QPushButton* mStartButton;
+	QPushButton* mStopButton;
+	QPushButton* mResetButton;
+	QPushButton* mUpdateButton;
 
-    //---------------------------------------------Bezier--------------------------------
-private:
-    OpenGLWindow* mBezierRenderer;
+	QWidget* mWidget;
+	QWidget* mCentralWidget;
 
-    QLabel* mBezierlabel1;
-    QLabel* mBezierlabel2;
-    QLabel* mBezierlabel3;
-    QLabel* mBezierlabel4;
-    QLabel* mBezierlabel5;
-    QLabel* mBezierlabel6;
-    QLabel* mBezierlabel7;
-    QLabel* mBezierlabel8;
-    QLabel* mBezierlabel9;
-    QLabel* mBezierlabel10;
-    QLabel* mBezierlabel11;
-    QLabel* mBezierlabel12;
+	QLineEdit* mTimeInput;
+	QTimer* mTimer;
+	QSlider* mZoomSlider;
+	QTabWidget* mTabWidget;
 
-    QDoubleSpinBox* mBezierdoubleSpinBox1;
-    QDoubleSpinBox* mBezierdoubleSpinBox2;
-    QDoubleSpinBox* mBezierdoubleSpinBox3;
-    QDoubleSpinBox* mBezierdoubleSpinBox4;
-    QDoubleSpinBox* mBezierdoubleSpinBox5;
-    QDoubleSpinBox* mBezierdoubleSpinBox6;
-    QDoubleSpinBox* mBezierdoubleSpinBox7;
-    QDoubleSpinBox* mBezierdoubleSpinBox8;
-    QDoubleSpinBox* mBezierdoubleSpinBox9;
-    QDoubleSpinBox* mBezierdoubleSpinBox10;
-    QDoubleSpinBox* mBezierdoubleSpinBox11;
-    QDoubleSpinBox* mBezierdoubleSpinBox12;
+	OpenGLWindow* mRenderer;
+	OpenGLWindow* mBezierRenderer;
+	OpenGLWindow* mHermiteRenderer;
+	OpenGLWindow* mBSpline3DRenderer;
 
-    QPushButton* mBezierpushButton;
+	//tabs
+	QHBoxLayout* mInputButtonsLayout;
+	QVBoxLayout* mVTab2ButtonsLayout;
+	QPushButton* mDrawBezierBtn;
+	QPushButton* mClearBtn;
+	QPushButton* mDrawHermiteButton;
+	QPushButton* mDrawBSplineButton;
 
-    //--------------------------------------------------BSpline---------------------------------------------------
-    OpenGLWindow* mBSplineRenderer;
+	QVBoxLayout* mVPoint1Layout;
+	QLabel* mPoint1;
+	QLineEdit* mX1Input;
+	QLineEdit* mY1Input;
+	QLineEdit* mZ1Input;
 
-    QLabel* mBSplinelabel1;
-    QLabel* mBSplinelabel2;
-    QLabel* mBSplinelabel3;
-    QLabel* mBSplinelabel4;
-    QLabel* mBSplinelabel5;
-    QLabel* mBSplinelabel6;
-    QLabel* mBSplinelabel7;
-    QLabel* mBSplinelabel8;
-    QLabel* mBSplinelabel9;
-    QLabel* mBSplinelabel10;
-    QLabel* mBSplinelabel11;
-    QLabel* mBSplinelabel12;
+	QVBoxLayout*	mVPoint2Layout;
+	QLabel*			mPoint2;
+	QLineEdit*		mX2Input;
+	QLineEdit*		mY2Input;
+	QLineEdit*		mZ2Input;
 
-    QDoubleSpinBox* mBSplinedoubleSpinBox1;
-    QDoubleSpinBox* mBSplinedoubleSpinBox2;
-    QDoubleSpinBox* mBSplinedoubleSpinBox3;
-    QDoubleSpinBox* mBSplinedoubleSpinBox4;
-    QDoubleSpinBox* mBSplinedoubleSpinBox5;
-    QDoubleSpinBox* mBSplinedoubleSpinBox6;
-    QDoubleSpinBox* mBSplinedoubleSpinBox7;
-    QDoubleSpinBox* mBSplinedoubleSpinBox8;
-    QDoubleSpinBox* mBSplinedoubleSpinBox9;
-    QDoubleSpinBox* mBSplinedoubleSpinBox10;
-    QDoubleSpinBox* mBSplinedoubleSpinBox11;
-    QDoubleSpinBox* mBSplinedoubleSpinBox12;
+	QVBoxLayout*	mVPoint3Layout;
+	QLabel*			mPoint3;
+	QLineEdit*		mX3Input;
+	QLineEdit*		mY3Input;
+	QLineEdit*		mZ3Input;
 
-    QPushButton* mBSplinepushButton;
-    //------------------------------------------------------Hermite-----------------------------------------------------------
-    OpenGLWindow* mHermiteRenderer;
+	QVBoxLayout* mVPoint4Layout;
+	QLabel* mPoint4;
+	QLineEdit* mX4Input;
+	QLineEdit* mY4Input;
+	QLineEdit* mZ4Input;
 
-    QLabel* mHermitelabel1;
-    QLabel* mHermitelabel2;
-    QLabel* mHermitelabel3;
-    QLabel* mHermitelabel4;
-    QLabel* mHermitelabel5;
-    QLabel* mHermitelabel6;
-    QLabel* mHermitelabel7;
-    QLabel* mHermitelabel8;
-    QLabel* mHermitelabel9;
-    QLabel* mHermitelabel10;
-    QLabel* mHermitelabel11;
-    QLabel* mHermitelabel12;
+	//drawCurve 
+	float xCoordinate;
+	float yCoordinate;
+	float zCoordinate;
+	float x1Coordinate;
+	float y1Coordinate;
+	float z1Coordinate;
+	float x2Coordinate;
+	float y2Coordinate;
+	float z2Coordinate;
+	float x3Coordinate;
+	float y3Coordinate;
+	float z3Coordinate;
 
-    QDoubleSpinBox* mHermitedoubleSpinBox1;
-    QDoubleSpinBox* mHermitedoubleSpinBox2;
-    QDoubleSpinBox* mHermitedoubleSpinBox3;
-    QDoubleSpinBox* mHermitedoubleSpinBox4;
-    QDoubleSpinBox* mHermitedoubleSpinBox5;
-    QDoubleSpinBox* mHermitedoubleSpinBox6;
-    QDoubleSpinBox* mHermitedoubleSpinBox7;
-    QDoubleSpinBox* mHermitedoubleSpinBox8;
-    QDoubleSpinBox* mHermitedoubleSpinBox9;
-    QDoubleSpinBox* mHermitedoubleSpinBox10;
-    QDoubleSpinBox* mHermitedoubleSpinBox11;
-    QDoubleSpinBox* mHermitedoubleSpinBox12;
+	QLineEdit* mLineEdit;
+	QLineEdit* mLineEdit2;
+	QLineEdit* mLineEdit3;
+	QLineEdit* mLineEdit4;
+	QLineEdit* mLineEdit5;
+	QLineEdit* mLineEdit6;
+	QLineEdit* mLineEdit7;
+	QLineEdit* mLineEdit8;
+	QLineEdit* mLineEdit9;
+	QLineEdit* mLineEdit10;
+	QLineEdit* mLineEdit11;
+	QLineEdit* mLineEdit12;
 
-    QPushButton* mHermitepushButton;
+	QLineEdit* mLineEdit13;
+	QLineEdit* mLineEdit14;
+	QLineEdit* mLineEdit15;
+	QLineEdit* mLineEdit16;
+	QLineEdit* mLineEdit17;
+	QLineEdit* mLineEdit18;
+	QLineEdit* mLineEdit19;
+	QLineEdit* mLineEdit20;
+	QLineEdit* mLineEdit21;
+	QLineEdit* mLineEdit22;
+	QLineEdit* mLineEdit23;
+	QLineEdit* mLineEdit24;
+
+	std::vector<float> mVertices;
+	std::vector<float> mColors;
 };

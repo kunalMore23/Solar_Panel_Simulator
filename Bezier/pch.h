@@ -13,13 +13,13 @@
 #endif //PCH_H
 
 // The following ifdef block is the standard way of creating macros which make exporting
-// from a DLL simpler. All files within this DLL are compiled with the ALGORITHM_EXPORTS
+// from a DLL simpler. All files within this DLL are compiled with the BEZIER_EXPORTS
 // symbol defined on the command line. This symbol should not be defined on any project
 // that uses this DLL. This way any other project whose source files include this file see
-// ALGORITHM_API functions as being imported from a DLL, whereas this DLL sees symbols
+// BEZIER_API functions as being imported from a DLL, whereas this DLL sees symbols
 // defined with this macro as being exported.
-#ifdef ALGORITHM_EXPORTS
-#define ALGORITHM_API __declspec(dllexport)
+#ifdef BEZIER_EXPORTS
+#define BEZIER_API __declspec(dllexport)
 #else
-#define ALGORITHM_API __declspec(dllimport)
+#define BEZIER_API __declspec(dllimport)
 #endif

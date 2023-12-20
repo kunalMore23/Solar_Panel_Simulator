@@ -1,9 +1,12 @@
 #pragma once
-#include "Algorithm.h"
 #include "Point3D.h"
 #include <vector>
+#include "pch.h"
+
+
 using namespace std;
-class ALGORITHM_API Bezier
+
+class BEZIER_API Bezier
 {
 public:
 	Bezier(Point3D inP0, Point3D inP1, Point3D inP2, Point3D inP3);
@@ -17,9 +20,8 @@ private:
 	Point3D mP2;
 	Point3D mP3;
 
-	float blend1;
-	float blend2;
-	float blend3;
-	float blend4;
+	float blend1=0.0f;
+	float blend2=0.0f;
+	float blend3=0.0f;
+	float blend4=0.0f;
 };
-

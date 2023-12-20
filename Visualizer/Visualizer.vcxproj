@@ -66,20 +66,20 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\Users\Kunal More\Downloads\Solar_Panel_Simulator-main\Solar_Panel_Simulator-main\Solar_System;D:\Kunal_Workspace\Qt\Visualizer\Geometry;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Kunal More\Downloads\Solar_Panel_Simulator-main\Solar_Panel_Simulator-main\Hermite;C:\Users\Kunal More\Downloads\Solar_Panel_Simulator-main\Solar_Panel_Simulator-main\BSpline;C:\Users\Kunal More\Downloads\Solar_Panel_Simulator-main\Solar_Panel_Simulator-main\Bezier;C:\Users\Kunal More\Downloads\Solar_Panel_Simulator-main\Solar_Panel_Simulator-main\Solar_System;D:\Kunal_Workspace\Qt\Visualizer\Geometry;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>C:\Users\Kunal More\Downloads\Solar_Panel_Simulator-main\Solar_Panel_Simulator-main\x64\Debug;D:\Kunal_Workspace\Qt\Visualizer\x64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Geometry.lib;SolarSystem.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Users\Kunal More\Downloads\Solar_Panel_Simulator-main\Solar_Panel_Simulator-main\x64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Geometry.lib;SolarSystem.lib;Algorithm.lib;Bezier.lib;BSpline.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\Users\Kunal More\Downloads\Solar_Panel_Simulator-main\Solar_Panel_Simulator-main\Solar_System;D:\Kunal_Workspace\Qt\Visualizer\Geometry;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Kunal More\Downloads\Solar_Panel_Simulator-main\Solar_Panel_Simulator-main\Hermite;C:\Users\Kunal More\Downloads\Solar_Panel_Simulator-main\Solar_Panel_Simulator-main\BSpline;C:\Users\Kunal More\Downloads\Solar_Panel_Simulator-main\Solar_Panel_Simulator-main\Bezier;C:\Users\Kunal More\Downloads\Solar_Panel_Simulator-main\Solar_Panel_Simulator-main\Solar_System;D:\Kunal_Workspace\Qt\Visualizer\Geometry;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>C:\Users\Kunal More\Downloads\Solar_Panel_Simulator-main\Solar_Panel_Simulator-main\x64\Debug;D:\Kunal_Workspace\Qt\Visualizer\x64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Geometry.lib;SolarSystem.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Users\Kunal More\Downloads\Solar_Panel_Simulator-main\Solar_Panel_Simulator-main\x64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Geometry.lib;SolarSystem.lib;Algorithm.lib;Bezier.lib;BSpline.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">

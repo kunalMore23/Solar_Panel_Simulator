@@ -1,2 +1,2 @@
-#define ALGORITHM_API __declspec(dllexport)
-#define ALGORITHM_API __declspec(dllimport)
+#define BEZIER_API __declspec(dllexport)
+#define BEZIER_API __declspec(dllimport)

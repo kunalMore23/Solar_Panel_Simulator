@@ -1,12 +1,17 @@
 #include "pch.h"
 #include "Bezier.h"
+
 #include <cmath>
 
 Bezier::Bezier(Point3D inP0, Point3D inP1, Point3D inP2, Point3D inP3) :
     mP0(inP0),
     mP1(inP1),
     mP2(inP2),
-    mP3(inP2)
+    mP3(inP2),
+    blend1(0.0f),
+    blend2(0.0f),
+    blend3(0.0f),
+    blend4(0.0f)
 {
 
 }
@@ -28,13 +33,13 @@ void Bezier::drawCurve(Point3D inP0, Point3D inP1, Point3D inP2, Point3D inP3, v
         mVertices.push_back(y);
         mVertices.push_back(z);
 
-        mVertices.push_back(x);
-        mVertices.push_back(y);
-        mVertices.push_back(z);
-
         mColors.push_back(0.0f);
         mColors.push_back(1.0f);
         mColors.push_back(0.0f);
+
+        mVertices.push_back(x);
+        mVertices.push_back(y);
+        mVertices.push_back(z);
 
         mColors.push_back(0.0f);
         mColors.push_back(1.0f);

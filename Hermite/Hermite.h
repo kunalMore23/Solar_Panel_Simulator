@@ -2,7 +2,6 @@
 #include "Algorithm.h"
 #include <vector>
 #include "Point3D.h"
-#include "pch.h"
 using namespace std;
 
 class ALGORITHM_API Hermite
@@ -23,5 +22,6 @@ private:
 	float blend2;
 	float blend3;
 	float blend4;
+
 };
 

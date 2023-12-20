@@ -1,2 +1,2 @@
-#define BSPLINE_API __declspec(dllexport)
-#define BSPLINE_API __declspec(dllimport)
+#define ALGORITHM_API __declspec(dllexport)
+#define ALGORITHM_API __declspec(dllimport)

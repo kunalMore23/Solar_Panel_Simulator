@@ -1,6 +1,5 @@
 #include "pch.h"
 #include "Hermite.h"
-#include "Point3D.h"
 
 Hermite::Hermite(Point3D inP0, Point3D inP1, Point3D inP2, Point3D inP3) :
     mP0(inP0),
@@ -20,7 +19,7 @@ void Hermite::drawCurve(Point3D inP0, Point3D inP1, Point3D inP2, Point3D inP3, 
     float t;
     float t2;
     float t3;
-    for (t = 0; t <= 1; t += 0.001f)
+    for (t = 0; t <= 1; t += 0.001)
     {
         t2 = t * t;
         t3 = t2 * t;
@@ -50,5 +49,8 @@ void Hermite::drawCurve(Point3D inP0, Point3D inP1, Point3D inP2, Point3D inP3, 
         mColors.push_back(0.0f);
         mColors.push_back(1.0f);
         mColors.push_back(0.0f);
+
+
     }
+
 }

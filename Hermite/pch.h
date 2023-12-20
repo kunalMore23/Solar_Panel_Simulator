@@ -11,6 +11,7 @@
 #include "framework.h"
 
 #endif //PCH_H
+
 // The following ifdef block is the standard way of creating macros which make exporting
 // from a DLL simpler. All files within this DLL are compiled with the ALGORITHM_EXPORTS
 // symbol defined on the command line. This symbol should not be defined on any project

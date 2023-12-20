@@ -1,22 +1,23 @@
-#include "pch.h"
+#pragma once
 #include "Point3D.h"
-#include<vector>
+#include "AlgorithmBS.h"
+#include <iostream>
+#include <vector>
 
-using floatList = std::vector<float>;
+using namespace std;
 
-// This class is exported from the dll
-class BSPLINE_API BSpline {
+class ALGORITHM_API BSpline3D {
 public:
-    BSpline(Point3D inP0, Point3D inP1, Point3D inP2, Point3D inP3);
-    ~BSpline();
+    BSpline3D(Point3D inP0, Point3D inP1, Point3D inP2, Point3D inP3);
+    ~BSpline3D();
 
     double basisFunction(int i, int k, double t);
-    void   evaluate(double t, floatList& mVertices, floatList& mColors);
-    void   drawCurveBspline(floatList& mVertices, floatList& mColors);
+    void evaluate(double t, vector<float>& mVertices, vector<float>& mColors);
+    void drawCurveBspline(vector<float>& mVertices, vector<float>& mColors);
 
 private:
     std::vector<double> knots;
-    std::vector<Point3D> controlPoints;
+
     int degree;
 
     Point3D mP0;
@@ -24,7 +25,3 @@ private:
     Point3D mP2;
     Point3D mP3;
 };
-
-extern BSPLINE_API int nBSpline;
-
-BSPLINE_API int fnBSpline(void);

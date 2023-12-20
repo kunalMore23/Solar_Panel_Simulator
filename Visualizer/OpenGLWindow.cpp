@@ -13,8 +13,18 @@ OpenGLWindow::OpenGLWindow(const QColor& background, QWidget* parent) : mBackgro
 	setParent(parent);
 	setMinimumSize(500, 250);
 	isRevolving = false;
+	 // Adjust the interval as needed
+}
+
+void OpenGLWindow::startRendereing()
+{
 	connect(timer, &QTimer::timeout, this, &OpenGLWindow::updateSolarPanelData);
-	timer->start(16); // Adjust the interval as needed
+	timer->start(32);
+}
+
+void OpenGLWindow::stopRendereing()
+{
+	timer->stop();
 }
 
 OpenGLWindow::~OpenGLWindow()
@@ -29,6 +39,15 @@ void OpenGLWindow::reset()
 	mProgram = nullptr;
 	doneCurrent();
 	QObject::disconnect(mContextWatchConnection);
+}
+
+void OpenGLWindow::updateData(std::vector<float>& vertices, std::vector<float>& colors)
+{
+	mVertices.clear();
+	mColors.clear();
+	mVertices = vertices;
+	mColors = colors;
+	update();
 }
 
 void OpenGLWindow::paintGL()
@@ -71,7 +90,7 @@ void OpenGLWindow::updateSolarPanelData()
 
 void OpenGLWindow::startRevolving()
 {
-	timer->start(16);
+	timer->start(32);
 }
 
 void OpenGLWindow::stopRevolving()

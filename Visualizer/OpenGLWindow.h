@@ -20,6 +20,8 @@ class OpenGLWindow :public QOpenGLWidget, protected QOpenGLFunctions
     Q_OBJECT
 public:
     OpenGLWindow(const QColor& background, QWidget* parent);
+    void startRendereing();
+    void stopRendereing();
     ~OpenGLWindow();
     void setZoomFactor(double zoomFactor);
     void setMultiplier(float value);
@@ -29,6 +31,7 @@ public:
     void updatePositions(float minutes);
 
     void updateSolarPanelData();
+    void updateData(std::vector<float>& vertices, std::vector<float>& colors);
 
 protected:
     void paintGL() override;
@@ -36,6 +39,7 @@ protected:
 
 private:
     void reset();
+
 
 private:
     float mMultiplier;
