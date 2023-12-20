@@ -47,3 +47,4 @@ vector<float> colors;
 hermiteCurve.drawCurve(p0, p1, p2, p3, vertices, colors);
 // Render the vertices and colors using OpenGL
 ```
+![Hermite](../drawHermite.png)
