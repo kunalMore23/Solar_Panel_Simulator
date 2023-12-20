@@ -49,3 +49,5 @@ floatList colors;
 bspline.drawCurveBspline(vertices, colors);
 // Render the vertices and colors using OpenGL
 ```
+
+![Image Alt Text](./drawBSpline.png)
