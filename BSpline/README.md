@@ -31,9 +31,9 @@ To use the BSpline DLL, follow these steps:
 
 1. **Include the necessary files**: Include the `BSpline.h` header file in your project.
 
-   ```cpp
-   #include "BSpline.h"
-   ```
+```cpp
+#include "BSpline.h"
+```
 2. **Create an instance of the BSpline class:**
 ```cpp
 Point3D p0(0.0, 0.0, 0.0);
