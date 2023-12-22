@@ -1,6 +1,7 @@
 #pragma once
 #include "Geometry.h"
 #include<iostream>
+#include "pch.h"
 class GEOMETRY_API Point3D
 {
 public:

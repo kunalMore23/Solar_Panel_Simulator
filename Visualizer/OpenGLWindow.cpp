@@ -16,6 +16,20 @@ OpenGLWindow::OpenGLWindow(const QColor& background, QWidget* parent) : mBackgro
 	 // Adjust the interval as needed
 }
 
+void OpenGLWindow::mouseMoveEvent(QMouseEvent* event) {
+	int dx = event->x() - lastPos.x();
+	int dy = event->y() - lastPos.y();
+
+	if (event->buttons() & Qt::LeftButton) {
+		QQuaternion rotX = QQuaternion::fromAxisAndAngle(0.0f, 1.0f, 0.0f, 0.5f * dx);
+		QQuaternion rotY = QQuaternion::fromAxisAndAngle(1.0f, 0.0f, 0.0f, 0.5f * dy);
+
+		rotationAngle = rotX * rotY * rotationAngle;
+		update();
+	}
+	lastPos = event->pos();
+}
+
 void OpenGLWindow::startRendereing()
 {
 	connect(timer, &QTimer::timeout, this, &OpenGLWindow::updateSolarPanelData);
@@ -58,6 +72,7 @@ void OpenGLWindow::paintGL()
 		QMatrix4x4 matrix;
 		matrix.ortho(-6.0f * 1.475, 6.0f * 1.475, -6.0f * 1.475f, 6.0f * 1.475, 0.1f, 100.0f);
 		matrix.translate(0, 0, -2);
+		matrix.rotate(rotationAngle);
 
 		mProgram->setUniformValue(m_matrixUniform, matrix);
 

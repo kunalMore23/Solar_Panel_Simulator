@@ -4,6 +4,7 @@
 #include <QOpenGLBuffer>
 #include <cmath>
 #include "Solar_Panel_System.h"
+#include "BSpline3D.h"
 
 class QOpenGLTexture;
 class QOpenGLShader;
@@ -33,6 +34,8 @@ public:
     void updateSolarPanelData();
     void updateData(std::vector<float>& vertices, std::vector<float>& colors);
 
+    void mouseMoveEvent(QMouseEvent* event);
+
 protected:
     void paintGL() override;
     void initializeGL() override;
@@ -40,7 +43,9 @@ protected:
 private:
     void reset();
 
-
+private:
+    QQuaternion rotationAngle;   //rotation properties
+    QPoint lastPos;
 private:
     float mMultiplier;
     float planetAngle = 0.0f;

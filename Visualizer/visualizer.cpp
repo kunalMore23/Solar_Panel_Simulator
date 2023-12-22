@@ -2,7 +2,7 @@
 #include "Visualizer.h"
 #include "OpenGLWindow.h"
 #include "Bezier.h"
-#include "BSpline.h"
+#include "BSpline3D.h"
 #include "Hermite.h"
 #include <QPushButton>
 #include <QGridLayout>
@@ -22,7 +22,9 @@ Visualizer::Visualizer(QWidget* parent)
 	connect(mZoomSlider, &QSlider::valueChanged, this, &Visualizer::zoomSliderChanged);
 	connect(mTabWidget, &QTabWidget::currentChanged, this, &Visualizer::onTabChanged); 
 	connect(mDrawBezierBtn, &QPushButton::clicked, this, &Visualizer::drawCurveUsingBezier);
-
+	connect(mDrawBezierBtn, &QPushButton::clicked, this, &Visualizer::drawCurveUsingHermite);
+	connect(mDrawBezierBtn, &QPushButton::clicked, this, &Visualizer::drawCurveUsingBSpline);
+	connect(mClearBtn, &QPushButton::clicked, this, &Visualizer::clearWindow);
 }
 
 Visualizer::~Visualizer()
@@ -417,4 +419,11 @@ void Visualizer::updateBtn()
 	{
 		mRenderer->updatePositions(numberOfDays);
 	}
+}
+
+void Visualizer::clearWindow()
+{
+	mVertices.clear();
+	mColors.clear();
+	mBezierRenderer->updateData(mVertices, mColors);
 }

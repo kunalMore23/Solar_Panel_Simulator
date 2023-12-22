@@ -1,10 +1,11 @@
 #pragma once
-#include "Algorithm.h"
 #include <vector>
 #include "Point3D.h"
+#include "pch.h"
+
 using namespace std;
 
-class ALGORITHM_API Hermite
+class HERMITE_API Hermite
 {
 public:
 	Hermite(Point3D inP0, Point3D inP1, Point3D inP2, Point3D inP3);

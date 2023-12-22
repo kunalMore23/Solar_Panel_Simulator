@@ -124,13 +124,13 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>C:\Users\Kunal More\Downloads\Solar_Panel_Simulator-main\Solar_Panel_Simulator-main\Geometry;E:\Umesh_Ekhande\OpenGL\OpenGL _Project\Geometry;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Kunal More\source\repos\Solar_Panel_Simulator\Geometry</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
-      <AdditionalLibraryDirectories>C:\Users\Kunal More\Downloads\Solar_Panel_Simulator-main\Solar_Panel_Simulator-main\x64\Debug;E:\Umesh_Ekhande\OpenGL\OpenGL _Project\Solar-System-Simulator\x64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\Kunal More\source\repos\Solar_Panel_Simulator\x64\Debug;E:\Umesh_Ekhande\OpenGL\OpenGL _Project\Solar-System-Simulator\x64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>Geometry.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -144,7 +144,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>C:\Users\Kunal More\Downloads\Solar_Panel_Simulator-main\Solar_Panel_Simulator-main\Geometry;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Kunal More\source\repos\Solar_Panel_Simulator\Geometry</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -152,7 +152,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
-      <AdditionalLibraryDirectories>C:\Users\Kunal More\Downloads\Solar_Panel_Simulator-main\Solar_Panel_Simulator-main\x64\Debug;</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\Kunal More\source\repos\Solar_Panel_Simulator\x64\Debug;</AdditionalLibraryDirectories>
       <AdditionalDependencies>Geometry.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>

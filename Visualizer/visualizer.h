@@ -5,6 +5,7 @@
 #include <QHBoxLayout>
 #include <QLineEdit>
 #include <QTimer>
+#include "BSpline3D.h"
 
 class OpenGLWindow;
 
@@ -23,6 +24,7 @@ private:
 	void drawCurveUsingBezier();
 	void drawCurveUsingHermite();
 	void drawCurveUsingBSpline();
+	void clearWindow();
 
 private slots:
 	void startBtn();
